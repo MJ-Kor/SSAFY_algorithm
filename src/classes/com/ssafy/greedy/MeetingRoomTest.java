@@ -5,8 +5,6 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
-import com.sun.org.apache.bcel.internal.generic.ARRAYLENGTH;
-
 public class MeetingRoomTest {
 
 	static class Meeting implements Comparable<Meeting>{

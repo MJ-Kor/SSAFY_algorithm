@@ -5,9 +5,11 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.StringTokenizer;
 
+/**
+ * map: 누적 합 저장 2차원 배열
+ */
 public class Solution_2001_김민주 {
 
-	private static int[][] arr;
 	private static int[][] map;
 	private static int T, N, M, x1, x2, y1, y2, sum;
 	private static int max = 0;
@@ -24,6 +26,8 @@ public class Solution_2001_김민주 {
 			N = Integer.parseInt(st.nextToken());
 			M = Integer.parseInt(st.nextToken());
 			map = new int[N + 1][N + 1];
+			
+			// 누적 합 배열 생성
 			for (int i = 1; i <= N; i++) {
 				st = new StringTokenizer(br.readLine());
 				for (int j = 1; j <= N; j++) {
@@ -31,9 +35,11 @@ public class Solution_2001_김민주 {
 					map[i][j] = map[i-1][j] + map[i][j-1] - map[i-1][j-1] + e;
 				}
 			}
-
-			for (int i = 1; i < N + 1 - M; i++) {
-				for (int j = 1; j < N + 1 - M; j++) {
+			
+			// 파리채 영역 이동하여 최대 파리 수 갱신
+			for (int i = 1; i <= N + 1 - M; i++) {
+				for (int j = 1; j <= N + 1 - M; j++) {
+					
 					x1 = i;
 					y1 = j;
 					x2 = x1 + M - 1;

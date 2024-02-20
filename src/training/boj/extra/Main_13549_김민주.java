@@ -18,48 +18,32 @@ public class Main_13549_김민주 {
 		K = Integer.parseInt(st.nextToken());
 		visited = new boolean[100001];
 		bfs();
+		System.out.println(min);
 	}
 
 	public static void bfs() {
-		int newN = 0;
-		int currBreath = -1;
 		Queue<int[]> queue = new ArrayDeque<>();
 		queue.offer(new int[] {N, 0});
+		visited[N] = true;
 		while(!queue.isEmpty()) {
 			int[] curr = queue.poll();
 			
-			if(currBreath < curr[1]) {
-				if(min != Integer.MAX_VALUE) {
-					System.out.println(min);
-					System.exit(0);
-				}
-				currBreath = curr[1];
+			if(curr[0] == K) min = Math.min(min, curr[1]);
+
+			if(curr[0] * 2 <= 100000 && !visited[curr[0] * 2]) {
+				queue.offer(new int[] {curr[0] * 2, curr[1]});
+				visited[curr[0] * 2] = true;
+			}
+
+			if(curr[0] - 1 >= 0 && !visited[curr[0] - 1]) {
+				queue.offer(new int[] {curr[0] - 1, curr[1] + 1});
+				visited[curr[0] - 1] = true;
 			}
 			
-			if(curr[0] == K) {
-				if(min > curr[1]) min = curr[1];
-			}
-			
-			for (int i = 0; i < 3; i++) {
-				if(i == 0) {
-					newN = curr[0] - 1;
-					if(newN <= 100000 && newN >= 0) {
-							queue.offer(new int[] {newN, curr[1] + 1});
-					}
-				}
-				else if(i == 1) {
-					newN = curr[0] + 1;
-					if(newN <= 100000 && newN >= 0) {
-						queue.offer(new int[] {newN, curr[1] + 1});
-					}					
-				} 
-				else if(i == 2) {
-					newN = curr[0] * 2;
-					if(newN <= 100000 && newN >= 0) {
-							queue.offer(new int[] {newN, curr[1]});
-					}					
-				}
-			}
+			if(curr[0] + 1 <= 100000 && !visited[curr[0] + 1]) {
+				queue.offer(new int[] {curr[0] + 1, curr[1] + 1});
+				visited[curr[0] + 1] = true;
+			}					
 		}
 	}
 }

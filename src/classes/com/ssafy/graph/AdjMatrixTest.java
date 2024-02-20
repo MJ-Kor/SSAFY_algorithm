@@ -21,8 +21,9 @@ public class AdjMatrixTest {
 			
 		}
 		
-		bfs2(adjMatrix, 0);
-		
+		//bfs2(adjMatrix, 0);
+		boolean [] visited = new boolean[V];
+		dfs(adjMatrix, visited, 0);
 	}
 	
 	static void bfs(int[][] adjMatrix, int start) {
@@ -84,4 +85,16 @@ public class AdjMatrixTest {
 		}
 	}
 
+	static void dfs(int[][] adjMatrix, boolean[] visited, int current) {
+		
+		int V = adjMatrix.length;
+		visited[current] = true;
+		System.out.println((char)(current + 65));
+		for (int i = 0; i < V; i++) {
+			if(adjMatrix[current][i] != 0 && !visited[i]) {				
+				dfs(adjMatrix, visited, i);
+			}
+		}
+	}
+	
 }

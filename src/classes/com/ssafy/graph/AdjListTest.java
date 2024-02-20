@@ -40,7 +40,8 @@ public class AdjListTest {
 			adjList[to] = new Node(from, adjList[to]);
 		}
 		
-		bfs(adjList, 0);
+		//bfs(adjList, 0);
+		dfs(adjList, new boolean[V], 0);
 		
 	}
 	
@@ -72,4 +73,14 @@ public class AdjListTest {
 		}
 	}
 
+	
+	static void dfs(Node[] adjList, boolean[] visited, int current) {
+		visited[current] = true;
+		System.out.println((char)(current + 65));
+		for (Node temp = adjList[current]; temp != null; temp = temp.next) {
+			if(!visited[temp.to]) {				
+				dfs(adjList, visited, temp.to);
+			}
+		}
+	}
 }

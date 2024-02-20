@@ -1,4 +1,4 @@
-package training.boj.extra;
+package hw.day_02_20;
 
 import java.io.BufferedReader;
 import java.io.IOException;

@@ -1,4 +1,4 @@
-package training.boj.extra;
+package training.boj.extra.silver;
 
 import java.io.BufferedReader;
 import java.io.IOException;

@@ -1,4 +1,4 @@
-package training.boj.extra;
+package training.boj.extra.silver;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -22,6 +22,7 @@ public class Main_11725_김민주 {
 		}
 	}
 	
+	@SuppressWarnings("unchecked")
 	public static void main(String[] args) throws NumberFormatException, IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		StringTokenizer st;

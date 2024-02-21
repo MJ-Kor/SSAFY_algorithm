@@ -1,4 +1,4 @@
-package training.boj.extra;
+package training.boj.extra.silver;
 
 // N과 M (7)
 import java.io.BufferedReader;

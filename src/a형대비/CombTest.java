@@ -26,7 +26,7 @@ public class CombTest {
 		visited = new boolean[N];	// 기본 타입은 0에 관련된걸로 초기화 => 가끔 깊은 복사 System.arraycopy
 		//Arrays.fill(nums,  -1); 	// nums의 모든 원소를 -1로 초기화
 		
-		perm(0);
+		comb(0, 0, 0);
 		System.out.println(count);
 	}
 	
@@ -36,22 +36,27 @@ public class CombTest {
 	//-> dfs(depth) depth를 구하는 것이 핵심 (반복문이 간단해짐), 로직은 동일하나 데이터만 바뀔 때 사용함
 	// dfs -> fifo call stack(메소드를 호출하면) 자동으로 지역 변수가 생기는 역할, 그러나 깊이가 깊어지면 터진다
 	// dfs -> 빠 
-	static void perm(int cnt) {
+	static void comb(int cnt, int start, int tot) {
 		if(cnt == R) {
 			// 로직
 			count++;
 			System.out.println(Arrays.toString(nums));
+			System.out.println(tot);
+			for (int i = 0; i < nums.length; i++) {
+				if(visited[i]) {
+					System.out.print(p[i] + " ");
+				}
+			}
+			System.out.println();
 			return;
 		}
 		
-		for (int i = 0; i < N; i++) {
-			//if(visited[i] == true) continue;
-			
-			visited[i] = true;
+		for (int i = start; i < N; i++) {
+			//visited[i] = true;		// comb는 생략 가능
 			nums[cnt] = p[i];
-			perm(cnt + 1);
+			comb(cnt + 1, i + 1, tot + p[cnt]); // -> 선택한 원소가 합해져서 넘어감
 			nums[cnt] = 0; 			// List면 remove를 시켜야함
-			visited[i] = false;
+			//visited[i] = false;
 			
 			// 위에 보면 대칭 구조를 가짐
 		}

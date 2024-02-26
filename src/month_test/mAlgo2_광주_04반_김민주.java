@@ -1,4 +1,4 @@
-package 월말평가;
+package month_test;
 
 import java.io.BufferedReader;
 import java.io.IOException;

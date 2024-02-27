@@ -74,8 +74,8 @@ public class DijkstraTest {
 				}
 			}
 		}
-		System.out.println(Arrays.toString(minDistance));
-		System.out.println(minDistance[end] != -1 ? minDistance[end] : -1);
+		System.out.println(Arrays.toString(minDistance)); // 출발지에서 모든 정점으로서의 최단거리
+		System.out.println(minDistance[end] != INF ? minDistance[end] : -1);
 	}
 
 }

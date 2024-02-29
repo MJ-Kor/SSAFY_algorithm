@@ -6,10 +6,11 @@ import java.io.InputStreamReader;
 import java.util.Arrays;
 import java.util.StringTokenizer;
 
-public class BOJ_2110 {
+public class BOJ_2110_comb_시간초과 {
 
 	private static int N;
 	private static int C;
+	private static int max = Integer.MIN_VALUE;
 	
 	public static void main(String[] args) throws IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -18,6 +19,7 @@ public class BOJ_2110 {
 		N = Integer.parseInt(st.nextToken());
 		C = Integer.parseInt(st.nextToken());
 		
+		int[] numbers = new int[C];
 		int[] homes = new int[N];
 		
 		for (int i = 0; i < N; i++) {
@@ -25,33 +27,29 @@ public class BOJ_2110 {
 		}
 		
 		Arrays.sort(homes);
+		comb(0, 0, homes, numbers);
 		
-		int left = 0;
-		int right = homes[N - 1] - homes[0];
-		int answer = 0;
-		
-		while(left <= right) {
-			int cnt = 1;
-			int prev = homes[0];
-			
-			int mid = (left + right) / 2;
-			
-			for (int i = 1; i < N; i++) {
-				if((homes[i] - prev) >= mid) {
-					cnt += 1;
-					prev = homes[i];
-				}
-			}
-			
-			if(cnt < C) {
-				 right = mid - 1;
-			}
-			else {
-				 answer = mid;
-				 left = mid + 1;
-			}
-			
-		}
-		System.out.println(answer);
+		System.out.println(max);
 	}
+
+	private static void comb(int cnt, int start, int[] homes, int[] numbers) {
+		if(cnt == C) {
+			getDistance(numbers);
+			return;
+		}
+		
+		for (int i = start; i < N; i++) {
+			numbers[cnt] = homes[i];
+			comb(cnt + 1, i + 1, homes, numbers);
+		}
+	}
+
+	private static void getDistance(int[] numbers) {
+		int min = Integer.MAX_VALUE;
+		for (int i = 0; i < C - 1; i++) {
+			min = Math.min(min, Math.abs(numbers[i + 1] - numbers[i]));
+		}
+		max = Math.max(max, min);
+	}
+
 }

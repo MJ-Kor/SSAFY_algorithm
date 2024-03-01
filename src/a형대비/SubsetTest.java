@@ -6,7 +6,7 @@ import java.util.Iterator;
 // 완탐
 // nFr = n^r
 public class SubsetTest {
-	static int[] p = {1,2,3,4,5,6,7};
+	static int[] p = {1,2,3};
 	static int N;
 	static int R;
 	static int count;

@@ -1,4 +1,4 @@
-package training.boj.extra.gold;
+package algorithm_study.day_03_05;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -8,7 +8,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.StringTokenizer;
 
-public class Main_11657_김민주 {
+public class BOJ_11657 {
 	
 	private static class Edge{
 		int from, to, weight;
@@ -27,7 +27,7 @@ public class Main_11657_김민주 {
 		
 	}
 	
-	private static final int INF = Integer.MAX_VALUE;
+	private static final long INF = Long.MAX_VALUE;
 
 	public static void main(String[] args) throws IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -52,9 +52,9 @@ public class Main_11657_김민주 {
 	}
 
 	private static void bellman_ford(int start, int V, int E, List<Edge> edges) {
-		int[] dist = new int[V + 1];
+		long[] dist = new long[V + 1];
 		Arrays.fill(dist, INF);
-		dist[start] = 0;
+		dist[start] = 0L;
 		
 		for (int i = 0; i < V; i++) {
 			for (int j = 0; j < E; j++) {

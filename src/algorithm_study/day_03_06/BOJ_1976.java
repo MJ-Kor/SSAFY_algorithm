@@ -13,7 +13,7 @@ public class BOJ_1976 {
 		StringTokenizer st = null;
 		
 		int V = Integer.parseInt(br.readLine());
-		int E = Integer.parseInt(br.readLine());
+		int N = Integer.parseInt(br.readLine());
 		
 		int[][] adjMatrix = new int[V][V];
 		
@@ -21,7 +21,37 @@ public class BOJ_1976 {
 			adjMatrix[i] = Arrays.stream(br.readLine().split(" ")).mapToInt(Integer::parseInt).toArray();
 		}
 		
+		st = new StringTokenizer(br.readLine());
 		
+		int[] tripVertex = new int[N];
+		for (int i = 0; i < N; i++) {
+			tripVertex[i] = Integer.parseInt(st.nextToken()) - 1;
+		}
+		
+		boolean[] visited = new boolean[V];
+		visited[tripVertex[0]] = true;
+		dfs(V, tripVertex[0], tripVertex[N - 1], adjMatrix, visited);
+		
+		for (int i = 0; i < N; i++) {
+			if(!visited[tripVertex[i]]) {
+				System.out.println("NO");
+				System.exit(0);
+			}
+		}
+		
+		System.out.println("YES");
+		
+	}
+
+	private static void dfs(int V, int start, int end, int[][] adjMatrix, boolean[] visited) {
+		
+		for (int i = 0; i < V; i++) {
+			if(adjMatrix[start][i] == 1 && !visited[i]) {
+				visited[i] = true;
+				dfs(V, i, end, adjMatrix, visited);
+			}
+		}
+
 	}
 	
 }

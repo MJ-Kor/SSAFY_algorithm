@@ -48,7 +48,7 @@ public class BOJ_1647 {
 		}
 		
 		Arrays.sort(edges);
-		System.out.println();
+//		System.out.println();
 		
 		int result = kruskal(V, edges);
 		
@@ -68,10 +68,10 @@ public class BOJ_1647 {
 			weightSum += edge.weight;
 			max = Math.max(max, edge.weight);
 			cnt++;
-			System.out.println(edge.from + " " + edge.to + " " + edge.weight);
+//			System.out.println(edge.from + " " + edge.to + " " + edge.weight);
 			if(cnt == V - 1) break;
 		}
-		System.out.println(cnt);
+//		System.out.println(cnt);
 		return weightSum - max;
 	}
 

@@ -1,4 +1,4 @@
-package templates;
+package templates.algorithms;
 
 public class Prim {
 

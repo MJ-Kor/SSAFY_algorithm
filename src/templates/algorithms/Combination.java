@@ -1,4 +1,4 @@
-package templates;
+package templates.algorithms;
 
 import java.io.BufferedReader;
 import java.io.IOException;

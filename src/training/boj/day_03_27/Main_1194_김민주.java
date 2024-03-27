@@ -1,148 +1,94 @@
 package training.boj.day_03_27;
 
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayDeque;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Queue;
 import java.util.StringTokenizer;
-
+ 
 public class Main_1194_김민주 {
 	
-	private static class QueueData{
-		int r, c; // 좌표
-		int breadth; // 이동 거리
-		int nowVisit; // 값을 저장할 visit 배열 위치 (0 ~ 6)
-		Map<Character, Boolean> isKey; // 키가 있는지 여부, (a, b, c, d, e, f)
-
-		public QueueData(int r, int c, int breadth, int nowVisit, Map<Character, Boolean> isKey) {
-			super();
-			this.r = r;
-			this.c = c;
-			this.breadth = breadth;
-			this.nowVisit = nowVisit;
-			this.isKey = isKey;
-		}
-		
-		@Override
-		public String toString() {
-			return "QueueData [r=" + r + ", c=" + c + ", breadth=" + breadth + ", nowVisit=" + nowVisit + ", isKey="
-					+ isKey + "]";
-		}
-	}
-	
+	private static int R;
+	private static int C;
+	private static char[][] map;
+	private static boolean[][][] visited;
 	private static int[] dr = {-1, 0, 1, 0};
 	private static int[] dc = {0, 1, 0, -1};
-	private static String doors = "ABCDEF";
-	private static String keys = "abcdef";
-
-	public static void main(String[] args) throws IOException {
+ 
+	public static void main(String[] args) throws Exception {
+ 
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-		StringTokenizer st = new StringTokenizer(br.readLine());
+		StringTokenizer st;
 		
-		int R = Integer.parseInt(st.nextToken());
-		int C = Integer.parseInt(st.nextToken());
+		st = new StringTokenizer(br.readLine());
+		R = Integer.parseInt(st.nextToken());
+		C = Integer.parseInt(st.nextToken());
 		
-		char[][] map = new char[R][C];
+		map = new char[R][C];
 		int sr = -1;
 		int sc = -1;
-		
 		for (int r = 0; r < R; r++) {
-			String row = br.readLine();
+			map[r] = br.readLine().toCharArray();
 			for (int c = 0; c < C; c++) {
-				char value = row.charAt(c);
-				map[r][c] = value;
-				if(value == '0') {
+				if(map[r][c] == '0') {
 					sr = r;
 					sc = c;
-					map[r][c] = '.';
 				}
 			}
 		}
 		
-		bfs(map, sr, sc, R, C);
-	}
-
-	private static void bfs(char[][] map, int sr, int sc, int R, int C) {
-//		System.out.println("sr: " + sr + "sc: " + sc);
-		int[][][] visited = new int[7][R][C];
-		Queue<QueueData> queue = new ArrayDeque<>();
-		Map<Character, Boolean> initKey = Map.of(
-				'a', false,
-				'b', false,
-				'c', false,
-				'd', false,
-				'e', false,
-				'f', false
-				);
+		visited = new boolean[R][C][64];
 		
-		visited[0][sr][sc] = 1;
-		queue.offer(new QueueData(sr, sc, 0, 0, initKey));
+		int result = bfs(sr, sc);
+		
+		System.out.println(result);
+	}
+	
+private static int bfs(int sr, int sc) {
+		
+		Queue<int[]> queue = new ArrayDeque<>();
+		
+		int key = 0;
+		
+		queue.add(new int[] {sr, sc, key, 0});
+		visited[sr][sc][0] = true;
 		
 		while(!queue.isEmpty()) {
-			QueueData curr = queue.poll();
-			System.out.println(curr);
-			if(map[curr.r][curr.c] == '1') {
-				System.out.println(curr.breadth);
-				System.exit(0);
-			}
+			int[] curr = queue.poll();
+			
 			for (int i = 0; i < 4; i++) {
-				int nr = curr.r + dr[i];
-				int nc = curr.c + dc[i];
-				if(indexValid(nr, nc, R, C) && visited[curr.nowVisit][nr][nc] == 0 && map[nr][nc] != '#') {
-					System.out.println(map[nr][nc]);
-					if(doors.contains(""+map[nr][nc])) {
-//						System.out.println("1");
-//						System.out.println((char)(map[nr][nc]+32));
-//						System.out.println(curr.isKey.get((char)(map[nr][nc]+32)));
-						if(curr.isKey.get((char)(map[nr][nc]+32))) {
-							int nb = curr.breadth + 1;
-							Map<Character, Boolean> nik = new HashMap<Character, Boolean>(curr.isKey);
-							visited[curr.nowVisit][nr][nc] = nb;
-							QueueData nextData = new QueueData(nr, nc, nb, curr.nowVisit, nik);
-							queue.offer(nextData);
+				int nr = curr[0] + dr[i];
+				int nc = curr[1] + dc[i];
+				
+				if(nr >= 0 && nr < R && nc >= 0 && nc < C) {
+
+					if(!visited[nr][nc][curr[2]]) {
+						if(map[nr][nc] == '.' || map[nr][nc] == '0') {
+							visited[nr][nc][curr[2]] = true;
+							queue.add(new int[] {nr, nc, curr[2], curr[3] + 1});
 						}
-					} else if(keys.contains(""+map[nr][nc])) {
-//						System.out.println("2");
-						if(curr.isKey.get(map[nr][nc])) {
-							int nb = curr.breadth + 1;
-							Map<Character, Boolean> nik = new HashMap<Character, Boolean>(curr.isKey);
-							visited[curr.nowVisit][nr][nc] = nb;
-							QueueData nextData = new QueueData(nr, nc, nb, curr.nowVisit, nik);
-							queue.offer(nextData);
-						} else {
-							int nv = curr.nowVisit + 1;
-							int nb = curr.breadth + 1;
-							Map<Character, Boolean> nik = new HashMap<Character, Boolean>(curr.isKey);
-							nik.put(map[nr][nc], true);
-							visited[nv][nr][nc] = nb;
-							QueueData nextData = new QueueData(nr, nc, nb, nv, nik);
-							queue.offer(nextData);
+						else if(map[nr][nc] >= 'a' && map[nr][nc] <= 'f') {
+							visited[nr][nc][curr[2]] = true;
+							
+							int k = curr[2] | (1 << (map[nr][nc] - 'a'));
+							queue.add(new int[] {nr, nc, k, curr[3] + 1});
 						}
-					} else {
-//						System.out.println("3");
-						int nb = curr.breadth + 1;
-						Map<Character, Boolean> nik = new HashMap<Character, Boolean>(curr.isKey);
-						visited[curr.nowVisit][nr][nc] = nb;
-						QueueData nextData = new QueueData(nr, nc, nb, curr.nowVisit, nik);
-						queue.offer(nextData);
+						else if(map[nr][nc] >= 'A' && map[nr][nc] <= 'F') {
+
+							if(((1 << (map[nr][nc] - 'A')) & curr[2]) == 1 << (map[nr][nc] - 'A')) {
+								visited[nr][nc][curr[2]] = true;
+								queue.add(new int[] {nr, nc, curr[2], curr[3] + 1});
+							}
+						}
+						else if(map[nr][nc] == '1') {
+							return curr[3] + 1;
+						}
 					}
 				}
 			}
-			
 		}
 		
-		System.out.println(-1);
+		return -1;
 	}
-	
-	private static boolean indexValid(int nr, int nc, int R, int C) {
-		if(nr >= 0 && nr < R && nc >= 0 && nc < C) {
-			return true;
-		}
-		return false;
-	}
-
+ 
 }

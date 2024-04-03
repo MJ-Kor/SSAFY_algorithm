@@ -5,11 +5,11 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.StringTokenizer;
 
-public class Main_12738_김민주 {
+public class Main_12015_김민주 {
 
 	private static int[] dp;
 	private static int[] arr;
-	private static int INT = 1_000_000_001;
+	private static int INT = 1_000_000_000;
 	
 	public static void main(String[] args) throws NumberFormatException, IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -20,7 +20,7 @@ public class Main_12738_김민주 {
 		
 		st = new StringTokenizer(br.readLine());
 		for (int i = 0; i < N; i++) {
-			arr[i] = Integer.parseInt(st.nextToken()) + INT;
+			arr[i] = Integer.parseInt(st.nextToken());
 		}
 		
 		int idx = 0;

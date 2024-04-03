@@ -9,7 +9,6 @@ public class Main_12015_김민주 {
 
 	private static int[] dp;
 	private static int[] arr;
-	private static int INT = 1_000_000_000;
 	
 	public static void main(String[] args) throws NumberFormatException, IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));

@@ -22,7 +22,7 @@ public class BOJ_1946 {
 		}
 		@Override
 		public int compareTo(Grade o) {
-			return o.paper - this.paper;
+			return this.paper - o.paper;
 		}
 	}
 
@@ -34,7 +34,7 @@ public class BOJ_1946 {
 		
 		for (int tc = 1; tc <= TC; tc++) {
 			int N = Integer.parseInt(br.readLine());
-			int cnt = 0;
+			int cnt = 1;
 			
 			Grade[] grades = new Grade[N];
 			for (int i = 0; i < N; i++) {
@@ -44,18 +44,15 @@ public class BOJ_1946 {
 			
 			Arrays.sort(grades);
 			
-			for (int i = 0; i < N - 1; i++) {
-				if(grades[i].interview > grades[i + 1].interview) { 
-					for (int j = i + 1; j >= 0; j--) {
-						if(grades[j].interview > grades[i + 1].interview) {
-							cnt--;
-						}
-					}
-				}
+			int min = grades[0].interview;
+			
+			for (int i = 1; i < N; i++) {
+				if(min < grades[i].interview) continue;
 				cnt++;
+				min = grades[i].interview;
 			}
 			
-			System.out.println(cnt + 1);
+			System.out.println(cnt);
 		}
 	}
 }

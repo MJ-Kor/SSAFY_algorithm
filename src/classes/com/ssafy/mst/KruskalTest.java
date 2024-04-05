@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.Arrays;
+import java.util.Iterator;
 import java.util.StringTokenizer;
 
 public class KruskalTest {
@@ -68,7 +69,8 @@ public class KruskalTest {
 	
 	public static int find(int a) {						// a가 속한 트리의 루트 찾기
 		if(a == parents[a]) return a;
-		return parents[a] = find(parents[a]); 	// path compression
+		//return parents[a] = find(parents[a]);
+		return parents[a] = find(parents[a]);// path compression
 	}
 	
 	public static boolean union(int a, int b) {

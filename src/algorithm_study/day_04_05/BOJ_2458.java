@@ -1,4 +1,4 @@
-package hw.day_04_03;
+package algorithm_study.day_04_05;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -8,7 +8,7 @@ import java.util.LinkedList;
 import java.util.Queue;
 import java.util.StringTokenizer;
 
-public class Solution_5643_김민주 {
+public class BOJ_2458 {
 	
 	private static int cnt = 0;
 	private static int V;
@@ -17,23 +17,27 @@ public class Solution_5643_김민주 {
 	
 	public static void main(String[] args) throws NumberFormatException, IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-		StringTokenizer st = new StringTokenizer(br.readLine());
+		StringTokenizer st = null;
 		
-		cnt = 0;
-		V = Integer.parseInt(st.nextToken());
-		int E = Integer.parseInt(st.nextToken());
-		adjMatrix = new int[V + 1][V + 1];
-		for (int i = 0; i < E; i++) {
-			st = new StringTokenizer(br.readLine());
-			int start = Integer.parseInt(st.nextToken());
-			int end = Integer.parseInt(st.nextToken());
-			adjMatrix[start][end] = 1;
-		}
+		int TC = Integer.parseInt(br.readLine());
 		
-		for (int i = 1; i <= V; i++) {				
-			solution(i);
+		for (int tc = 1; tc <= TC; tc++) {
+			cnt = 0;
+			V = Integer.parseInt(br.readLine());
+			int E = Integer.parseInt(br.readLine());
+			adjMatrix = new int[V + 1][V + 1];
+			for (int i = 0; i < E; i++) {
+				st = new StringTokenizer(br.readLine());
+				int start = Integer.parseInt(st.nextToken());
+				int end = Integer.parseInt(st.nextToken());
+				adjMatrix[start][end] = 1;
+			}
+			
+			for (int i = 1; i <= V; i++) {				
+				solution(i);
+			}
+			System.out.println("#" + tc + " " + cnt);
 		}
-		System.out.println(cnt);
 	}
 
 	private static void solution(int target) {

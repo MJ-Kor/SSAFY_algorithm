@@ -57,6 +57,7 @@ public class KruskalTest {
 			if(++cnt == V - 1) break;					// 최소 신장트리 완성
 		}
 		
+		System.out.println(Arrays.toString(parents));
 		System.out.println(weight);
 	}
 

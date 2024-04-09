@@ -5,10 +5,6 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.StringTokenizer;
 
-/**
- * N: 컨베이어 벨트 길이
- * K: 종료 조건
- */
 public class BOJ_20055 {
 
 	private static class BeltSpace{
@@ -47,14 +43,11 @@ public class BOJ_20055 {
 		boolean valid = true;
 		
 		do {
-//			System.out.println("before: " + Arrays.toString(belt));
-//			System.out.println();
 			rotateBelt();
 			moveRobot();
 			putRobot();
 			valid = checkDurability();
 			if(valid) step++; 
-//			if(step == 32) break;
 		}while(valid);
 		
 		System.out.println(step);
@@ -68,8 +61,6 @@ public class BOJ_20055 {
 		
 		belt = copied;
 		if(belt[N-1].isRobot) belt[N-1].isRobot = false;
-//		System.out.println("rotate: " + Arrays.toString(belt));
-//		System.out.println();
 	}
 
 	private static void moveRobot() {
@@ -82,8 +73,6 @@ public class BOJ_20055 {
 			}
 		}
 		if(belt[N-1].isRobot) belt[N-1].isRobot = false;
-//		System.out.println("move" + Arrays.toString(belt));
-//		System.out.println();
 	}
 
 	private static void putRobot() {
@@ -91,8 +80,6 @@ public class BOJ_20055 {
 			belt[0].isRobot = true;
 			belt[0].durability--;
 		}
-//		System.out.println("put" + Arrays.toString(belt));
-//		System.out.println();
 	}
 
 	private static boolean checkDurability() {

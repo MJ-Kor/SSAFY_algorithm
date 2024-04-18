@@ -4,13 +4,14 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.Arrays;
+import java.util.Stack;
 import java.util.StringTokenizer;
 
 public class Main_14002_김민주 {
 
 	private static int[] dp;
 	private static int[] arr;
-	private static int INT = 1_000_000_001;
+	private static int INT = -1_000_000_001;
 	
 	public static void main(String[] args) throws NumberFormatException, IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -28,38 +29,35 @@ public class Main_14002_김민주 {
 		
 		int idx = 0;
 		int len = 0;
+		dp[len] = INT;
 		for (int i = 0; i < N; i++) {
 			if(arr[i] > dp[len]) {
 				len++;
 				dp[len] = arr[i];
+				result[i] = len;
 			}
 			else {
 				idx = binarySearchLIS(arr[i], 0, len);
 				dp[idx] = arr[i];
+				result[i] = idx;
 			}
 		}
-		printResult(N, len);
-	}
-
-	private static void printResult(int N, int len) {
-		int[] result = new int[len];
-		int idx = 0;
-		int max = dp[len];
+		
 		System.out.println(len);
-		Arrays.sort(arr);
-		result[idx] = max;
-		idx++;
+		StringBuilder sb = new StringBuilder();
+		
+		Stack<Integer> stack = new Stack<>();
 		for (int i = N - 1; i >= 0; i--) {
-			if(max > arr[i]) {
-//				System.out.print(arr[i] + " ");
-				result[idx] = arr[i];
-				idx++;
-				max = arr[i];
+			if(result[i] == len) {
+				stack.push(arr[i]);
+				len--;
 			}
 		}
-		for (int i = len - 1; i >= 0; i--) {
-			System.out.print(result[i] + " ");
+		
+		while(!stack.isEmpty()) {
+			sb.append(stack.pop()+" ");
 		}
+		System.out.println(sb.toString());
 	}
 
 	private static int binarySearchLIS(int value, int start, int end) {

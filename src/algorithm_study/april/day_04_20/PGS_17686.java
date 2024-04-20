@@ -2,7 +2,7 @@ package algorithm_study.april.day_04_20;
 
 import java.util.*;
 
-class Solution {
+class PGS_17686 {
     
     private static class File implements Comparable<File>{
         String head, original, lower;

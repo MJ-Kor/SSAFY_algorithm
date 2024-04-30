@@ -1,3 +1,4 @@
+package training.boj.day_03_27;
 //package training.boj.day_03_27;
 //
 //import java.io.BufferedReader;

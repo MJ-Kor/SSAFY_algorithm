@@ -20,14 +20,10 @@ public class BOJ_21318 {
                 continue;
             }
             if(level[i - 1] > level[i]) {
-                dp[i] = dp[i - 1]++;
+                dp[i] = dp[i - 1] + 1;
             } else {
                 dp[i] = dp[i - 1];
             }
-        }
-
-        for (int i = 0; i < n; i++) {
-            System.out.print(dp[i] + " ");
         }
 
         int q = Integer.parseInt(br.readLine());

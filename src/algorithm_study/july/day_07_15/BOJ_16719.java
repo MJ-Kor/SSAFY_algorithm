@@ -1,4 +1,4 @@
-package algorithm_study.july.day_07_16;
+package algorithm_study.july.day_07_15;
 
 
 import java.io.BufferedWriter;

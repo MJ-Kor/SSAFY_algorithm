@@ -1,4 +1,4 @@
-package algorithm_study.july.day_07_18;
+package algorithm_study.july.day_07_17;
 
 import java.io.*;
 import java.util.*;

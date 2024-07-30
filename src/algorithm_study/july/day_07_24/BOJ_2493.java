@@ -1,4 +1,4 @@
-package algorithm_study.july.day_07_25;
+package algorithm_study.july.day_07_24;
 
 import java.io.BufferedReader;
 import java.io.IOException;

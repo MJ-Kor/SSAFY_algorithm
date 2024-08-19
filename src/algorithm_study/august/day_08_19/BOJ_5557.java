@@ -7,46 +7,40 @@ import java.util.StringTokenizer;
 
 public class BOJ_5557 {
 
-    static int answer = 0;
-    static int N;
-    static int[] numbers = new int[100];
-
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st;
 
-        N = Integer.parseInt(br.readLine());
+        int n = Integer.parseInt(br.readLine());
+        int [] arr= new int[n];
+        long [][] dp = new long[n][21];
 
-        st = new StringTokenizer(br.readLine());
+        String[] s = br.readLine().split(" ");
 
-        for (int i = 0; i < N; i++) {
-            numbers[i] = Integer.parseInt(st.nextToken());
+        for (int i = 0; i < n; i++) {
+            arr[i] = Integer.parseInt(s[i]);
         }
 
-        dfs(0, 0, numbers[0]);
+        dp[0][arr[0]] = 1;
 
-
-        System.out.println(answer);
-
-    }
-
-
-    static void dfs(int depth, int res, int num) {
-
-        if(res < 0 || res >= 20) return;
-
-        if(depth == N - 1) {
-            if(res == num) {
-                answer++;
+        int plus;
+        int minus;
+        for (int i = 1; i < n - 1; i++) {
+            for (int j = 0; j <= 20 ; j++) {
+                if(dp[i - 1][j] != 0) {
+                    plus = j+arr[i];
+                    minus = j-arr[i];;
+                    if(plus >= 0 && plus <= 20) {
+                        dp[i][plus] +=dp[i - 1][j];
+                    }
+                    if(minus >= 0 && minus <= 20) {
+                        dp[i][minus] += dp[i - 1][j];
+                    }
+                }
             }
-            return;
         }
 
-        res += num;
-        dfs(depth + 1, res, numbers[depth + 1]);
-
-        res -= (2 * num);
-        dfs(depth + 1, res, numbers[depth + 1]);
-
+        System.out.println(dp[n-2][arr[n-1]]);
     }
+
 }

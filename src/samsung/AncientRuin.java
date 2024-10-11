@@ -91,16 +91,18 @@ public class AncientRuin {
 			wall[i] = Integer.parseInt(st.nextToken());
 		}
 		
-		ruinsStatus = new RuinsStatus(0, 0, 0, 0);
+		ruinsStatus = new RuinsStatus(RUINSSIZE, RUINSSIZE, 360, 0);
 	}
 
 	private static void solution() {
 		
 		for (int k = 0; k < K; k++) {
 			copyOfRuinsInfo = copyRuinsInfo();
-			ruinsStatus = new RuinsStatus(0, 0, 0, 0);
+			ruinsStatus = new RuinsStatus(RUINSSIZE, RUINSSIZE, 360, 0);
 			int answer = 0;
 			findRuins();
+			copyOfRuinsInfo = copyRuinsInfo();
+			System.out.println(ruinsStatus.toString());
 			int[] rotateLine = new int[8];
 			setRotateLine(rotateLine, ruinsStatus.r, ruinsStatus.c);
 			if(ruinsStatus.rotateAngle == 90) {
@@ -110,12 +112,14 @@ public class AncientRuin {
 			} else {
 				rotate270(rotateLine, ruinsStatus.r, ruinsStatus.c);
 			}
+			printMap();
 			while(true) {
 				int value = getValue();
 				System.out.println("value: " + value);
 				answer += value;
 				if(value == 0) break;
 				fillRelics();
+				printMap();
 			}
 			System.out.println(answer);
 			
@@ -159,7 +163,7 @@ public class AncientRuin {
 	private static void rotate90(int[] rotateLine, int r, int c) {
 		
 		for(int i = 0; i < 8; i++) {
-			copyOfRuinsInfo[r + dr[i]][c + dc[i]] = rotateLine[(i + 2) % 8];
+			copyOfRuinsInfo[r + dr[i]][c + dc[i]] = rotateLine[(i + 6) % 8];
 		}
 	}
 	
@@ -173,7 +177,7 @@ public class AncientRuin {
 	private static void rotate270(int[] rotateLine, int r, int c) {
 		
 		for(int i = 0; i < 8; i++) {
-			copyOfRuinsInfo[r + dr[i]][c + dc[i]] = rotateLine[(i + 6) % 8];
+			copyOfRuinsInfo[r + dr[i]][c + dc[i]] = rotateLine[(i + 2) % 8];
 		}
 	}
 	
@@ -234,7 +238,6 @@ public class AncientRuin {
 	}
 
 	private static int bfs(int r, int c) {
-		
 		Queue<Disk> queue = new LinkedList<>();
 		Stack<Disk> stack = new Stack<Disk>(); 
 		queue.add(new Disk(r, c, copyOfRuinsInfo[r][c]));
@@ -291,6 +294,15 @@ public class AncientRuin {
 		}
 		
 		return copy;
+	}
+
+	private static void printMap() {
+		for (int r = 0; r < RUINSSIZE; r++) {
+			for (int c = 0; c < RUINSSIZE; c++) {
+				System.out.print(copyOfRuinsInfo[r][c] + " ");
+			}
+			System.out.println();
+		}
 	}
 
 }

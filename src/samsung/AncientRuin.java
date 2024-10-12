@@ -72,7 +72,7 @@ public class AncientRuin {
 		ruinsInfo = new int[RUINSSIZE][RUINSSIZE];
 		visited = new boolean[RUINSSIZE][RUINSSIZE];
 		isEmptyDisk = new boolean[RUINSSIZE][RUINSSIZE];
-		copyOfRuinsInfo = copyRuinsInfo();
+		copyOfRuinsInfo = new int[RUINSSIZE][RUINSSIZE];
 		st = new StringTokenizer(br.readLine());
 		K = Integer.parseInt(st.nextToken());
 		M = Integer.parseInt(st.nextToken());
@@ -84,6 +84,7 @@ public class AncientRuin {
 			}
 		}
 		
+		copyOfRuinsInfo = copyMaps(ruinsInfo);
 		wall = new int[M];
 		st = new StringTokenizer(br.readLine());
 		
@@ -97,12 +98,10 @@ public class AncientRuin {
 	private static void solution() {
 		
 		for (int k = 0; k < K; k++) {
-			copyOfRuinsInfo = copyRuinsInfo();
 			ruinsStatus = new RuinsStatus(RUINSSIZE, RUINSSIZE, 360, 0);
 			int answer = 0;
 			findRuins();
-			copyOfRuinsInfo = copyRuinsInfo();
-			System.out.println(ruinsStatus.toString());
+			copyOfRuinsInfo = copyMaps(ruinsInfo);
 			int[] rotateLine = new int[8];
 			setRotateLine(rotateLine, ruinsStatus.r, ruinsStatus.c);
 			if(ruinsStatus.rotateAngle == 90) {
@@ -112,20 +111,19 @@ public class AncientRuin {
 			} else {
 				rotate270(rotateLine, ruinsStatus.r, ruinsStatus.c);
 			}
-			printMap();
 			while(true) {
 				int value = getValue();
-				System.out.println("value: " + value);
 				answer += value;
 				if(value == 0) break;
 				fillRelics();
-				printMap();
 			}
-			System.out.println(answer);
+			ruinsInfo = copyMaps(copyOfRuinsInfo);
 			
-			if(answer == 0) return;
-			
-			System.out.println(answer);
+			if(answer != 0) {				
+				System.out.print(answer + " ");
+			} else {
+				return;
+			}
 		}
 		
 	}
@@ -191,6 +189,7 @@ public class AncientRuin {
 	private static void compare(int rotateAngle, int r, int c) {
 		
 		int value = getValue();
+		isEmptyDisk = new boolean[RUINSSIZE][RUINSSIZE];
 		
 		if(ruinsStatus.value == value) {
 			if(ruinsStatus.rotateAngle == rotateAngle) {
@@ -267,7 +266,7 @@ public class AncientRuin {
 			}
 			return size;
 		}
-		
+		stack.clear();
 		return 0;
 	}
 
@@ -281,28 +280,18 @@ public class AncientRuin {
 				}
 			}
 		}
+		isEmptyDisk = new boolean[RUINSSIZE][RUINSSIZE];
 	}
-
-	private static int[][] copyRuinsInfo() {
-		
-		int[][] copy = new int[RUINSSIZE][RUINSSIZE];
+	
+	private static int[][] copyMaps(int[][] source) {
+		int [][] copy = new int[RUINSSIZE][RUINSSIZE];
 		
 		for (int r = 0; r < copy.length; r++) {
 			for (int c = 0; c < copy.length; c++) {
-				copy[r][c] = ruinsInfo[r][c];
+				copy[r][c] = source[r][c];
 			}
 		}
 		
 		return copy;
 	}
-
-	private static void printMap() {
-		for (int r = 0; r < RUINSSIZE; r++) {
-			for (int c = 0; c < RUINSSIZE; c++) {
-				System.out.print(copyOfRuinsInfo[r][c] + " ");
-			}
-			System.out.println();
-		}
-	}
-
 }
